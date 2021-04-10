@@ -25,45 +25,32 @@ This Webhook wrote in PHP allow telegram notifications when [Nixstats](https://n
 ![Get your Chat User ID](https://i.imgur.com/QRcnmJX.png)
 
 
-## Installation
+## Docker Image Utilization
 
-* Now you can clone this repo in the folder of your server where Nixstats could call your Webhook :
+* Now you can pull image
 
 ```bash
-cd /var/www
-git clone https://github.com/bilyboy785/nixstats-webhook-telegram.git nixstats
-cd nixstats
+docker pull martinbouillaud/nixstatswh:latest
 ```
 
 * Replace **Bot Token** and **Telegram User ID** in the nixstats Webhook with Tokenizer script :
 
-```bash
-chmod +x tokenizer.sh
-./tokenizer.sh
-Please enter your Telegram Token : 378865447:AAQe2OB9I-pl1__eVEHzI6KCDT5XW-HGAjs
-Enter now your ChatUserID : 65284287
-Token and ChatID are successfully applied !
-Exiting..
-```
-
 ## Configuration
 
-* To configure your Webhook in Nixstats you just have to put your **Webhook URL** in your **Settings / Notifications Contacts** :
+* Create a **nixstats.ini** file on your computer like this : 
 
-![Configure your Webhook URL](https://img.bouillaudmartin.fr/7U0VbvpA.png)
+```
+tgtoken = YOUR_TELEGRAM_BOT_TOKEN
+tgchatid = YOUR_TELEGRAM_CHAT_ID
+bitlylogin = YOUR_BITLY_LOGIN
+bitlyapikey = YOUR_BITLY_APIKEY
+```
 
-* On each Server / Monitor, add the Webhook option to your selected recipients :
+* Run docker with mounted volume on your INI file
 
-![Add Webhook in your Recipients](https://img.bouillaudmartin.fr/D2WbptwY.png)
-
-## Todo list
-
-If you have any idea of enhancements, tell me ;)
-
-* [x] Check if there is a POST query before notify
-* [x] Clean the files with a function folder
-* [ ] Simplify my code
-* [ ] Remove some useless lines
+```bash
+docker run -d --name nixstatswh -p 80:80 -v /PATH/TO/nixstats.ini:/var/www/html/nixstatswh/nixstats.ini:ro martinbouillaud/nixstatswh:latest
+```
 
 ## Thank's to
 
