@@ -46,7 +46,6 @@ bitlylogin = YOUR_BITLY_LOGIN
 bitlyapikey = YOUR_BITLY_APIKEY
 ```
 
-* Run docker with mounted volume on your INI file
 
 ```bash
 docker run -d --name nixstatswh -p 80:80 -v /PATH/TO/nixstats.ini:/var/www/html/nixstatswh/nixstats.ini:ro martinbouillaud/nixstatswh:latest
