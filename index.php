@@ -16,6 +16,10 @@
   // Include the functions file
   require "functions/functions.php";
 
+$ini = parse_ini_file("nixstats.ini");
+$telegrambot=$ini["tgtoken"];
+dump($telegrambot);
+die;
 // Check if there is a POST Playload request to start the Webhook
 if (isset($_POST['payload'])) {
     // Initialize variables
