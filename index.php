@@ -16,15 +16,12 @@
   // Include the functions file
   require "functions/functions.php";
 
-  $telegrambot=getenv(TELEGRAM_BOT_TOKEN);
-  $telegramchatid=getenv(TELEGRAM_CHATID);
-  $bitlyLogin=getenv(BITLY_LOGIN);
-  $bitlyApiKey=getenv(BITLY_APIKEY);
-
-  var_dump($telegrambot);
-
 // Check if there is a POST Playload request to start the Webhook
 if (isset($_POST['payload'])) {
+    $telegrambot=getenv('TELEGRAM_BOT_TOKEN');
+    $telegramchatid=getenv('TELEGRAM_CHATID');
+    $bitlyLogin=getenv('BITLY_LOGIN');
+    $bitlyApiKey=getenv('BITLY_APIKEY');
     // Initialize variables
     // $ini = parse_ini_file("nixstats.ini");
     // $telegrambot=$ini["tgtoken"];
