@@ -16,20 +16,18 @@
   // Include the functions file
   require "functions/functions.php";
 
-$ini = parse_ini_file("../.nixstats.ini");
-$telebottoken=getenv(YOUR_TELEGRAM_BOT_TOKEN);
-$telegrambot=$ini["tgtoken"];
-var_dump($telebottoken);
-var_dump($telegrambot);
-die;
 // Check if there is a POST Playload request to start the Webhook
 if (isset($_POST['payload'])) {
     // Initialize variables
-    $ini = parse_ini_file("nixstats.ini");
-    $telegrambot=$ini["tgtoken"];
-    $telegramchatid=$ini["tgchatid"];
-    $bitlyLogin=$ini["bitlylogin"];
-    $bitlyApiKey=$ini["bitlyapikey"];
+    // $ini = parse_ini_file("nixstats.ini");
+    // $telegrambot=$ini["tgtoken"];
+    // $telegramchatid=$ini["tgchatid"];
+    // $bitlyLogin=$ini["bitlylogin"];
+    // $bitlyApiKey=$ini["bitlyapikey"];
+    $telegrambot=getenv(TELEGRAM_BOT_TOKEN);
+    $telegramchatid=getenv(TELEGRAM_CHATID);
+    $bitlyLogin=getenv(BITLY_LOGIN);
+    $bitlyApiKey=getenv(BITLY_APIKEY);
 
     // Pass the Json file
     $data = json_decode($_POST['payload'], true);
