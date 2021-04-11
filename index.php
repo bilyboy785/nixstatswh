@@ -17,7 +17,9 @@
   require "functions/functions.php";
 
 $ini = parse_ini_file("../.nixstats.ini");
+$telebottoken=getenv(YOUR_TELEGRAM_BOT_TOKEN);
 $telegrambot=$ini["tgtoken"];
+dump($telebottoken);
 dump($telegrambot);
 die;
 // Check if there is a POST Playload request to start the Webhook
