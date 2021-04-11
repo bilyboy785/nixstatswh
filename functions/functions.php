@@ -81,9 +81,9 @@ function server_notification_text($serverStatus,$serverName,$serverMetric,$serve
   $urlNixstats = get_bitly_short_url($url,$bitlyLogin,$bitlyApiKey);
   if($serverStatus=="OPEN"){
       if($serverThreshold=="updown"){
-        $notification = '❌ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - Le service ' . $serverDevice . ' est *DOWN* (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
+        $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - Le service ' . $serverDevice . ' est *DOWN* (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
       }else{
-        $notification = '❌ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - ' . explode_subject($serverSubject) . ' - Seuil de : ' . $serverThreshold . '% dépassé : ' . $serverValue . '% - (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
+        $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - ' . explode_subject($serverSubject) . ' - Seuil de : ' . $serverThreshold . '% dépassé : ' . $serverValue . '% - (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
     }
   }else{
     if($serverThreshold=="updown"){
@@ -99,10 +99,12 @@ function server_notification_text($serverStatus,$serverName,$serverMetric,$serve
 function domain_notification_text($domainName,$domainStatus,$domainSubject,$domainStartTime,$domainEndTime,$domainId,$bitlyLogin,$bitlyApiKey,$domainDateDiff){
   $url = 'https://nixstats.com/domain/' . $domainId . '/overview';
   $urlNixstats = get_bitly_short_url($url,$bitlyLogin,$bitlyApiKey);
+  $detailAlert = str_replace("DOWN:", "", $domainSubject);
+  $detailAlert = str_replace("UP:", "", $detailAlert);
   if($domainStatus=="OPEN"){
-    $notification = '❌ #' . $domainStatus . ' - #' . $domainName . ' - ' . $domainSubject . '  - (Injoignable depuis le ' . str_replace(' ',' à ',$domainStartTime) . ') - ' . $urlNixstats . '.';
+    $notification = '❌ #DOWN' . ' - ' . $domainName . ' - ' . $detailAlert . '  - (Injoignable depuis le ' . str_replace(' ',' à ',$domainStartTime) . ') - ' . $urlNixstats . '.';
   }else{
-    $notification = '✔️ #' . $domainStatus . ' - #' . $domainName . ' - ' . $domainSubject . '  - (Résolu le : ' . str_replace(' ',' à ',$domainEndTime) . ' - ' . $domainDateDiff . ' de downtime ) - ' . $urlNixstats . '.';
+    $notification = '✔️ #UP'  . ' - ' . $domainName . ' - ' . $detailAlert . '  - (Résolu le : ' . str_replace(' ',' à ',$domainEndTime) . ' - ' . $domainDateDiff . ' de downtime ) - ' . $urlNixstats . '.';
   }
   return $notification;
 }
