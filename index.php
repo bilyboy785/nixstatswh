@@ -16,7 +16,7 @@
   // Include the functions file
   require "functions/functions.php";
 
-$ini = parse_ini_file("nixstats.ini");
+$ini = parse_ini_file("../.nixstats.ini");
 $telegrambot=$ini["tgtoken"];
 dump($telegrambot);
 die;
