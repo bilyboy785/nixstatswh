@@ -33,23 +33,65 @@ This Webhook wrote in PHP allow telegram notifications when [Nixstats](https://n
 docker pull martinbouillaud/nixstatswh:latest
 ```
 
-* Replace **Bot Token** and **Telegram User ID** in the nixstats Webhook with Tokenizer script :
+## Define environnement variables
 
-## Configuration
+- `SERVER_ADMIN` (an email, defaults to `you@example.com`)
+- `HTTP_SERVER_NAME` (a [server name](https://httpd.apache.org/docs/2.4/fr/mod/core.html#servername), defaults to `www.example.com`)
+- `HTTPS_SERVER_NAME` (a [server name](https://httpd.apache.org/docs/2.4/fr/mod/core.html#servername), defaults to `www.example.com`)
+- `LOG_LEVEL` (a [log level](https://httpd.apache.org/docs/2.4/fr/mod/core.html#loglevel), defaults to `info`)
+- `TZ` (a [timezone](https://www.php.net/manual/timezones.php), defaults to `UTC`)
+- `PHP_MEMORY_LIMIT` (a [memory-limit](https://www.php.net/manual/ini.core.php#ini.memory-limit), defaults to `256M`)
+- `TELEGRAM_BOT_TOKEN` (Your Telegram Bot Token)
+- `TELEGRAM_CHATID`(Your Telegram Chat ID)
 
-* Create a **nixstats.ini** file on your computer like this : 
+### Build
 
+Replace *nixstatswh* and tags with whatever you want when building your own image.
+
+```sh
+docker build -t nixstatswh:latest .
 ```
-tgtoken = YOUR_TELEGRAM_BOT_TOKEN
-tgchatid = YOUR_TELEGRAM_CHAT_ID
-bitlylogin = YOUR_BITLY_LOGIN
-bitlyapikey = YOUR_BITLY_APIKEY
-```
 
+## Run
 
 ```bash
-docker run -d --name nixstatswh -p 80:80 -v /PATH/TO/nixstats.ini:/var/www/html/nixstatswh/nixstats.ini:ro martinbouillaud/nixstatswh:latest
+docker run -d --name nixstatswh -e TELEGRAM_BOT_TOKEN=XXXX -e TELEGRAM_CHATID=XXXX -p 80:80 martinbouillaud/nixstatswh:latest
 ```
+
+## Customized run
+
+```sh
+docker run -d \
+    --name nixstatswh \
+    -e HTTP_SERVER_NAME="www.example.xyz" \
+    -e HTTPS_SERVER_NAME="www.example.xyz" \
+    -e SERVER_ADMIN="admin@example.xyz" \
+    -e TZ="Europe/Paris" \
+    -e PHP_MEMORY_LIMIT="512M" \
+    --publish 80:80 \
+    --publish 443:443 \
+    --restart unless-stopped \
+    martinbouillaud/nixstatswh:latest
+```
+
+## Docker-compose Stack
+
+```
+version: "3.3"
+nixstatswh:
+    container_name: nixstatswh
+    image: martinbouillaud/nixstatswh:latest
+    ports:
+        - "8080:80"
+    environment:
+        - SERVER_ADMIN=me@example.com
+        - HTTP_SERVER_NAME=nixstatswh.example.com
+        - TZ=Europe/Paris
+        - PHP_MEMORY_LIMIT=256M
+        - TELEGRAM_BOT_TOKEN=XXXXXX
+        - TELEGRAM_CHATID=XXXXXX
+```
+
 
 ## Thank's to
 

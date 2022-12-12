@@ -22,12 +22,6 @@ if (isset($_POST['payload'])) {
     $telegramchatid=getenv('TELEGRAM_CHATID');
     $bitlyLogin=getenv('BITLY_LOGIN');
     $bitlyApiKey=getenv('BITLY_APIKEY');
-    // Initialize variables
-    // $ini = parse_ini_file("nixstats.ini");
-    // $telegrambot=$ini["tgtoken"];
-    // $telegramchatid=$ini["tgchatid"];
-    // $bitlyLogin=$ini["bitlylogin"];
-    // $bitlyApiKey=$ini["bitlyapikey"];
 
     // Pass the Json file
     $data = json_decode($_POST['payload'], true);
