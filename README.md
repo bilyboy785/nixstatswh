@@ -35,12 +35,13 @@ docker pull martinbouillaud/nixstatswh:latest
 
 ## Define environnement variables
 
-- `SERVER_ADMIN` (an email, defaults to `you@example.com`)
 - `HTTP_SERVER_NAME` (a [server name](https://httpd.apache.org/docs/2.4/fr/mod/core.html#servername), defaults to `www.example.com`)
 - `HTTPS_SERVER_NAME` (a [server name](https://httpd.apache.org/docs/2.4/fr/mod/core.html#servername), defaults to `www.example.com`)
 - `LOG_LEVEL` (a [log level](https://httpd.apache.org/docs/2.4/fr/mod/core.html#loglevel), defaults to `info`)
 - `TZ` (a [timezone](https://www.php.net/manual/timezones.php), defaults to `UTC`)
 - `PHP_MEMORY_LIMIT` (a [memory-limit](https://www.php.net/manual/ini.core.php#ini.memory-limit), defaults to `256M`)
+- `PHP_UPLOAD_MAX_FILESIZE` (a [upload_max_filesize](https://www.php.net/manual/fr/ini.core.php#ini.upload-max-filesize), defaults to `8M`)
+- `PHP_POST_MAX_SIZE` (a [post_max_size](https://www.php.net/manual/fr/ini.core.php#ini.post-max-size), defaults to `8M`)
 - `TELEGRAM_BOT_TOKEN` (Your Telegram Bot Token)
 - `TELEGRAM_CHATID`(Your Telegram Chat ID)
 
@@ -65,7 +66,6 @@ docker run -d \
     --name nixstatswh \
     -e HTTP_SERVER_NAME="www.example.xyz" \
     -e HTTPS_SERVER_NAME="www.example.xyz" \
-    -e SERVER_ADMIN="admin@example.xyz" \
     -e TZ="Europe/Paris" \
     -e PHP_MEMORY_LIMIT="512M" \
     --publish 80:80 \
@@ -84,7 +84,6 @@ nixstatswh:
     ports:
         - "8080:80"
     environment:
-        - SERVER_ADMIN=me@example.com
         - HTTP_SERVER_NAME=nixstatswh.example.com
         - TZ=Europe/Paris
         - PHP_MEMORY_LIMIT=256M

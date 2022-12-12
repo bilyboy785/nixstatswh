@@ -17,21 +17,19 @@ RUN apk --no-cache --update \
     php-gd \
     php-iconv \
     php-mbstring \
-    php-mysqli \
-    php-mysqlnd \
     php-openssl \
     php-phar \
-    php-session \
     php-xml \
+    php-json \
     && mkdir /htdocs
 
-EXPOSE 80 443
+EXPOSE 80
 
 COPY ./sources/ /htdocs/
 
 ADD docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
-HEALTHCHECK CMD wget -q --no-cache --spider localhost
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD curl --fail http://localhost:80 || exit 1
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
