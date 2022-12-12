@@ -76,18 +76,18 @@ function explode_subject($serverSubject){
 }
 
 // Function to define the text for Server Notification
-function server_notification_text($serverStatus,$serverName,$serverMetric,$serverValue,$serverSubject,$serverThreshold,$serverStartTimeAlert,$serverEndTimeAlert,$serverId,$serverDevice){
+function server_notification_text($serverStatus,$serverName,$serverMetric,$serverValue,$serverSubject,$serverThreshold,$serverStartTimeAlert,$serverEndTimeAlert,$serverId){
   $url = 'https://nixstats.com/server/' . $serverId . '/overview';
   $urlNixstats = 'https://nixstats.com/server/' . $serverId . '/overview';
   if($serverStatus=="OPEN"){
       if($serverThreshold=="updown"){
-        $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - Le service ' . $serverDevice . ' est *DOWN* (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
+        $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - Le service est *DOWN* (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
       }else{
         $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - ' . explode_subject($serverSubject) . ' - Seuil de : ' . $serverThreshold . '% dépassé : ' . $serverValue . '% - (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
     }
   }else{
     if($serverThreshold=="updown"){
-      $notification = '✔️ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - Le service ' . $serverDevice . ' est *UP* (Fin de la panne : ' . $serverEndTimeAlert . ' ) - ' . $urlNixstats . '.';
+      $notification = '✔️ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - Le service est *UP* (Fin de la panne : ' . $serverEndTimeAlert . ' ) - ' . $urlNixstats . '.';
     }else{
       $notification = '✔️ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - ' . explode_subject($serverSubject) . ' - Retour à l\'état OK - (Fin de la panne : ' . $serverEndTimeAlert . ' ) - ' . $urlNixstats . '.';
     }

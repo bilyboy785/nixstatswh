@@ -43,7 +43,7 @@ if (isset($_POST)) {
             $serverValue = $data['value'];
             $serverSubject = $data['subject'];
             $serverThreshold = $data['threshold'];
-            $serverDevice = $data['device'];
+            //$serverDevice = $data['device'];
             $serverStartTime = $data['start_time'];
             $serverStartTimeAlert = date('d-m-Y H:i:s', $serverStartTime);
             $serverEndTimeAlert = date('d-m-Y H:i:s', $data['time']);
