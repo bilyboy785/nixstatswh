@@ -76,9 +76,9 @@ function explode_subject($serverSubject){
 }
 
 // Function to define the text for Server Notification
-function server_notification_text($serverStatus,$serverName,$serverMetric,$serverValue,$serverSubject,$serverThreshold,$serverStartTimeAlert,$serverEndTimeAlert,$serverId,$bitlyLogin,$bitlyApiKey,$serverDevice){
+function server_notification_text($serverStatus,$serverName,$serverMetric,$serverValue,$serverSubject,$serverThreshold,$serverStartTimeAlert,$serverEndTimeAlert,$serverId,$serverDevice){
   $url = 'https://nixstats.com/server/' . $serverId . '/overview';
-  $urlNixstats = get_bitly_short_url($url,$bitlyLogin,$bitlyApiKey);
+  $urlNixstats = 'https://nixstats.com/server/' . $serverId . '/overview';
   if($serverStatus=="OPEN"){
       if($serverThreshold=="updown"){
         $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - Le service ' . $serverDevice . ' est *DOWN* (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
@@ -96,9 +96,8 @@ function server_notification_text($serverStatus,$serverName,$serverMetric,$serve
 }
 
 // Function to define the text for Domain Notification
-function domain_notification_text($domainName,$domainStatus,$domainSubject,$domainStartTime,$domainEndTime,$domainId,$bitlyLogin,$bitlyApiKey,$domainDateDiff){
-  $url = 'https://nixstats.com/domain/' . $domainId . '/overview';
-  $urlNixstats = get_bitly_short_url($url,$bitlyLogin,$bitlyApiKey);
+function domain_notification_text($domainName,$domainStatus,$domainSubject,$domainStartTime,$domainEndTime,$domainId,$domainDateDiff){
+  $urlNixstats = 'https://nixstats.com/domain/' . $domainId . '/overview';
   $detailAlert = str_replace("DOWN:", "", $domainSubject);
   $detailAlert = str_replace("UP:", "", $detailAlert);
   if($domainStatus=="OPEN"){
@@ -116,18 +115,6 @@ function send_telegram_notif($status,$domainName,$subject,$dateNotif,$notificati
   }else{
     telegram_notify($notification);
   }
-}
-
-/* Returns the shortened url */
-function get_bitly_short_url($url,$login,$appkey,$format='txt') {
-  $connectURL = 'http://api.bit.ly/v3/shorten?login='.$login.'&apiKey='.$appkey.'&uri='.urlencode($url).'&format='.$format;
-  return curl_get_result($connectURL);
-}
-
-/* Returns expanded url */
-function get_bitly_long_url($url,$login,$appkey,$format='txt') {
-  $connectURL = 'http://api.bit.ly/v3/expand?login='.$login.'&apiKey='.$appkey.'&shortUrl='.urlencode($url).'&format='.$format;
-  return curl_get_result($connectURL);
 }
 
 /* returns a result form url */

@@ -20,8 +20,6 @@
 if (isset($_POST['payload'])) {
     $telegrambot=getenv('TELEGRAM_BOT_TOKEN');
     $telegramchatid=getenv('TELEGRAM_CHATID');
-    $bitlyLogin=getenv('BITLY_LOGIN');
-    $bitlyApiKey=getenv('BITLY_APIKEY');
 
     // Pass the Json file
     $data = json_decode($_POST['payload'], true);
@@ -44,7 +42,7 @@ if (isset($_POST['payload'])) {
         $serverEndTimeAlert = date('d-m-Y H:i:s', $data['time']+($timezone*3600));
         //$serverDateDiff = diff_date($serverEndTimeAlert,$ServerStartTimeAlert);
         // Send the notification
-        $notification = server_notification_text($serverStatus, $serverName, $serverMetric, $serverValue, $serverSubject, $serverThreshold, $serverStartTimeAlert, $serverEndTimeAlert, $serverId, $bitlyLogin, $bitlyApiKey, $serverDevice);
+        $notification = server_notification_text($serverStatus, $serverName, $serverMetric, $serverValue, $serverSubject, $serverThreshold, $serverStartTimeAlert, $serverEndTimeAlert, $serverId, $serverDevice);
         telegram_notify($notification);
     } else {
         // Monitor parameters
@@ -58,7 +56,7 @@ if (isset($_POST['payload'])) {
         $domainEndTime = date('d-m-Y H:i:s', $data['end_time']+($timezone*3600));
         $domainDateDiff = diff_date($domainEndTime, $domainStartTime);
         // Send the notification
-        $notification = domain_notification_text($domainName, $domainStatus, $domainSubject, $domainStartTime, $domainEndTime, $domainId, $bitlyLogin, $bitlyApiKey, $domainDateDiff);
+        $notification = domain_notification_text($domainName, $domainStatus, $domainSubject, $domainStartTime, $domainEndTime, $domainId, $domainDateDiff);
         telegram_notify($notification);
     }
 }
