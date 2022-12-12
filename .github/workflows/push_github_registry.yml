@@ -5,7 +5,7 @@ on:
     tags: [ '*' ]
 
 jobs:
-  publish-image:
+  push_github_registry:
     runs-on: ubuntu-latest
 
     steps:
