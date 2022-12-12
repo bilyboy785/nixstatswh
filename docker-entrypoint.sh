@@ -36,9 +36,6 @@ sed -i 's/#LoadModule\ expires_module/LoadModule\ expires_module/' /etc/apache2/
 sed -i "s/memory_limit = .*/memory_limit = ${PHP_MEMORY_LIMIT}/" /etc/php8/php.ini
 sed -i "s#^;date.timezone =\$#date.timezone = \"${TZ}\"#" /etc/php8/php.ini
 
-# Fix perms
-chown www-data: /htdocs -R
-
 echo 'Running Apache'
 
 httpd -D FOREGROUND
