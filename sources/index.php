@@ -66,3 +66,4 @@ if (isset($_POST)) {
             telegram_notify($notification);
         }
     }
+}
