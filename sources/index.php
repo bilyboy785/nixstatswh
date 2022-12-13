@@ -11,12 +11,13 @@
  * @link     https://www.bouillaudmartin.fr
  */
   // Displaying errors
-  // error_reporting(E_ALL);
-  // ini_set('display_errors', 1);
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
 
+  require "functions/telegram.php";
   require "functions/functions.php";
 
-if (isset($_POST)) {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $input_data = json_decode(file_get_contents('php://input'), true);
     $array_data = json_encode($input_data);
@@ -29,11 +30,8 @@ if (isset($_POST)) {
         // Pass the Json file
         $data = json_decode($array_data, true);
 
-        // print_r($data);
-
         // Check Type of Alert
         if (empty($data['domain_id'])) {
-            // Parameters
             $serverId = $data['server_id'];
             $serverNotificationId = $data['notification_id'];
             $serverAlertId = $data['alert_id'];
@@ -47,23 +45,22 @@ if (isset($_POST)) {
             $serverStartTime = $data['start_time'];
             $serverStartTimeAlert = date('d-m-Y H:i:s', $serverStartTime);
             $serverEndTimeAlert = date('d-m-Y H:i:s', $data['time']);
-            // Send the notification
-            $notification = server_notification_text($serverStatus, $serverName, $serverMetric, $serverValue, $serverSubject, $serverThreshold, $serverStartTimeAlert, $serverEndTimeAlert, $serverId, $serverDevice);
-            telegram_notify($notification);
+            $notification = server_notification_text($serverStatus, $serverName, $serverMetric, $serverValue, $serverSubject, $serverThreshold, $serverStartTimeAlert, $serverEndTimeAlert, $serverId);
+            telegram($notification);
         } else {
-            // Monitor parameters
             $domainId = $data['domain_id'];
             $domainName = $data['name'];
             $domainStatus = strtoupper($data['status']);
             $domainSubject = str_replace('Monitor', 'Le domaine', $data['subject']);
             $domainSubject = str_replace('is down!', 'est injoignable !', $domainSubject);
             $domainSubject = str_replace('is back online', 'est de nouveau en ligne', $domainSubject);
-            $domainStartTime = date('d-m-Y H:i:s', $data['start_time']+($timezone*3600));
-            $domainEndTime = date('d-m-Y H:i:s', $data['end_time']+($timezone*3600));
+            $domainStartTime = date('d-m-Y H:i:s', $data['start_time']);
+            $domainEndTime = date('d-m-Y H:i:s', $data['end_time']);
             $domainDateDiff = diff_date($domainEndTime, $domainStartTime);
-            // Send the notification
             $notification = domain_notification_text($domainName, $domainStatus, $domainSubject, $domainStartTime, $domainEndTime, $domainId, $domainDateDiff);
-            telegram_notify($notification);
+            telegram($notification);
         }
     }
+}else{
+    echo "WE NEED POST QUERY";
 }

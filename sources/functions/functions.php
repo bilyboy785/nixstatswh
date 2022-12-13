@@ -14,15 +14,6 @@ function telegram_notify($msg){
     	curl_close($ch);
 }
 
-//function telegram_notify($msg){
- //   global $telegrambot,$telegramchatid;
-   // $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegramchatid,'text'=>$msg);
-    //$options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
-   // $context=stream_context_create($options);
-   // $result=file_get_contents($url,false,$context);
-   // return $result;
-//}
-
 // Function to convert a timestamp in readable date format
 function timestamp_to_date($timestamp){
   $datetimeFormat = 'd-m-Y H:i:s';
@@ -48,8 +39,6 @@ function diff_date($dateEnd,$dateStart){
 	}else{
 		$diffDate = $interval->format('%h')." heures ".$interval->format('%i')." minutes et ".$interval->format('%s')." secondes";
 	}
-	//$hours = $diff->h;
-	//$hours = $hours + ($diff->days*24);
 	return $diffDate;
 }
 
@@ -83,13 +72,13 @@ function server_notification_text($serverStatus,$serverName,$serverMetric,$serve
       if($serverThreshold=="updown"){
         $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - Le service est *DOWN* (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
       }else{
-        $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - ' . explode_subject($serverSubject) . ' - Seuil de : ' . $serverThreshold . '% dépassé : ' . $serverValue . '% - (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
+        $notification = '❌ #' . $serverStatus . ' - #' . $serverName . ' - ' . $serverSubject . ' - Seuil de : ' . $serverThreshold . '% dépassé : ' . $serverValue . '% - (Début de panne : ' . $serverStartTimeAlert . ') - ' . $urlNixstats . '.';
     }
   }else{
     if($serverThreshold=="updown"){
       $notification = '✔️ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - Le service est *UP* (Fin de la panne : ' . $serverEndTimeAlert . ' ) - ' . $urlNixstats . '.';
     }else{
-      $notification = '✔️ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - ' . explode_subject($serverSubject) . ' - Retour à l\'état OK - (Fin de la panne : ' . $serverEndTimeAlert . ' ) - ' . $urlNixstats . '.';
+      $notification = '✔️ #' . $serverStatus . ' - #' . strtoupper($serverName) . ' - ' . $serverSubject . ' - Retour à l\'état OK - (Fin de la panne : ' . $serverEndTimeAlert . ' ) - ' . $urlNixstats . '.';
     }
   }
   return $notification;

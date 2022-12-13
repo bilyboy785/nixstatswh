@@ -36,7 +36,6 @@ docker pull martinbouillaud/nixstatswh:latest
 ## Define environnement variables
 
 - `HTTP_SERVER_NAME` (a [server name](https://httpd.apache.org/docs/2.4/fr/mod/core.html#servername), defaults to `www.example.com`)
-- `HTTPS_SERVER_NAME` (a [server name](https://httpd.apache.org/docs/2.4/fr/mod/core.html#servername), defaults to `www.example.com`)
 - `LOG_LEVEL` (a [log level](https://httpd.apache.org/docs/2.4/fr/mod/core.html#loglevel), defaults to `info`)
 - `TZ` (a [timezone](https://www.php.net/manual/timezones.php), defaults to `UTC`)
 - `PHP_MEMORY_LIMIT` (a [memory-limit](https://www.php.net/manual/ini.core.php#ini.memory-limit), defaults to `256M`)
