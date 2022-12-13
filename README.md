@@ -1,5 +1,7 @@
 ## Docker Nixstats Webhook
 
+Nixstats Webhook Docker based on Alpine 3.17 & PHP 8.1
+
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) [![Docker Pulls](https://badgen.net/docker/pulls/martinbouillaud/nixstatswh?icon=docker&label=pulls)](https://hub.docker.com/r/martinbouillaud/nixstatswh:latest)  [![Docker Image Size](https://img.shields.io/docker/image-size/martinbouillaud/nixstatswh?sort=date)](https://hub.docker.com/r/martinbouillaud/nixstatswh/) [![Github last-commit](https://img.shields.io/github/last-commit/bilyboy785/nixstatswh)](https://github.com/bilyboy785/nixstatswh) ![Push to Docker Hub](https://github.com/bilyboy785/nixstatswh/actions/workflows/push_docker_hub.yml/badge.svg) ![Push to Github Registry](https://github.com/bilyboy785/nixstatswh/actions/workflows/push_github_registry.yml/badge.svg)
 
 ## Description 
@@ -68,11 +70,11 @@ docker run -d --name nixstatswh -e TELEGRAM_BOT_TOKEN=XXXX -e TELEGRAM_CHATID=XX
 docker run -d \
     --name nixstatswh \
     -e HTTP_SERVER_NAME="www.example.xyz" \
-    -e HTTPS_SERVER_NAME="www.example.xyz" \
     -e TZ="Europe/Paris" \
     -e PHP_MEMORY_LIMIT="512M" \
+    -e TELEGRAM_BOT_TOKEN="XXXX" \
+    -e TELEGRAM_CHATID="XXXX" \
     --publish 80:80 \
-    --publish 443:443 \
     --restart unless-stopped \
     martinbouillaud/nixstatswh:latest
 ```
